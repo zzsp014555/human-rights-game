@@ -10,7 +10,6 @@
     
     .phone-container { width: 100%; max-width: 430px; background: #1e293b; border-radius: 36px; border: 4px solid #334155; padding: 16px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); position: relative; overflow: hidden; display: flex; flex-direction: column; }
     
-    /* 1. 頂部狀態列與救援進度條 */
     .status-bar { display: flex; justify-content: space-between; font-size: 11px; color: #94a3b8; padding: 0 10px 8px 10px; border-bottom: 1px solid #334155; }
     .header { text-align: center; padding: 10px 0; border-bottom: 2px solid #334155; margin-bottom: 12px; }
     .header h2 { margin: 0; color: #38bdf8; font-size: 18px; letter-spacing: 1px; }
@@ -18,16 +17,14 @@
     .progress-bar-bg { background: #0f172a; height: 8px; border-radius: 4px; margin-top: 8px; overflow: hidden; }
     .progress-bar-fill { background: linear-gradient(90deg, #38bdf8, #22c55e); height: 100%; width: 25%; transition: width 0.5s ease; }
 
-    /* 2. 角色動態表情卡片 (😭 ➔ 🥹 ➔ 🌟) */
     .profile-card { background: #0f172a; border-radius: 18px; padding: 12px; margin-bottom: 12px; border: 2px solid #334155; display: flex; align-items: center; gap: 12px; }
     .avatar { font-size: 42px; background: #1e293b; border-radius: 50%; padding: 4px; min-width: 58px; text-align: center; border: 2px solid #f87171; transition: transform 0.3s; }
     .avatar.pulse { animation: avatarPulse 1.2s infinite; }
     .profile-info { font-size: 12px; color: #94a3b8; line-height: 1.4; }
     .profile-info b { color: #f87171; font-size: 14px; }
 
-    /* 聊天室與簡訊框 */
     .chat-area { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
-    .chat-bubble { max-width: 88%; padding: 12px 14px; border-radius: 18px; font-size: 13.5px; line-height: 1.5; position: relative; }
+    .chat-bubble { max-width: 90%; padding: 12px 14px; border-radius: 18px; font-size: 13.5px; line-height: 1.5; position: relative; }
     .chat-left { background: #334155; color: #f8fafc; align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid #475569; }
     .chat-right { background: #0284c7; color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
     
@@ -39,11 +36,9 @@
     .dot:nth-child(2) { animation-delay: .2s; }
     .dot:nth-child(3) { animation-delay: .4s; }
 
-    /* 3. 語音波浪脈衝按鈕 */
     .speaker-btn { background: #0284c7; color: #fff; border: none; padding: 6px 12px; border-radius: 16px; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; font-size: 12px; margin-top: 6px; transition: 0.2s; }
     .speaker-btn.playing { background: #22c55e; animation: pulse 0.8s infinite; }
 
-    /* 清爽選項按鈕 */
     .section-title { font-size: 13px; color: #38bdf8; margin-bottom: 10px; font-weight: bold; background: #0f172a; padding: 8px 12px; border-radius: 10px; }
     .btn-group { display: flex; flex-direction: column; gap: 8px; }
     .option-btn { background: #1e293b; border: 2px solid #475569; color: #fff; padding: 12px; border-radius: 14px; text-align: left; font-size: 13.5px; cursor: pointer; transition: 0.2s; line-height: 1.4; }
@@ -58,7 +53,6 @@
     
     .hidden { display: none; }
     
-    /* 4. 終點特務識別證卡片 */
     .agent-card { background: linear-gradient(135deg, #422006, #78350f); border: 2px solid #f59e0b; border-radius: 18px; padding: 16px; text-align: center; margin-top: 15px; }
     #confetti-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 99; }
     
@@ -85,7 +79,7 @@
     </div>
   </div>
 
-  <!-- 動態角色卡 (😭 ➔ 🥹 ➔ 🌟) -->
+  <!-- 動態角色卡 -->
   <div class="profile-card">
     <div id="avatar" class="avatar pulse">😭</div>
     <div class="profile-info">
@@ -101,7 +95,8 @@
       <div class="chat-bubble chat-left">
         <div class="sender-name">🇾🇪 Tanya 🚨 求救簡訊</div>
         <div id="tanya-msg-1">
-          "I am 11 years old. My father <span class="highlight">sold</span> me for money, and my husband hits me. I want to <span class="highlight">go to school</span>!"
+          <span class="en-text">"I am 11 years old. My father <span class="highlight">sold</span> me for money, and my husband hits me. I want to <span class="highlight">go to school</span>!"</span>
+          <br><small style="color: #cbd5e1; display: block; margin-top: 4px;">（我只有 11 歲。我父親為了錢把我賣掉，我的丈夫經常打我。我想去上學！）</small>
         </div>
         <button id="spk-btn-1" class="speaker-btn" onclick="speakText('tanya-msg-1', 'spk-btn-1')">
           🔊 聽 Tanya 的求救心聲
@@ -121,7 +116,7 @@
 
     <div id="read-task-1" class="read-aloud-card hidden">
       <div style="color: #a5b4fc; font-weight:bold; font-size:14px;">🎙️ 特務任務：朗讀驗證</div>
-      <p id="target-text-1" style="font-size: 15px; font-weight: bold; color: #fbbf24; margin: 8px 0;"></p>
+      <div id="target-text-1" style="margin: 8px 0;"></div>
       <button id="spk-btn-target1" class="speaker-btn" onclick="speakTarget(1, 'spk-btn-target1')">🔊 聽示範發音</button>
       <p style="font-size: 11px; color: #cbd5e1; margin-top: 6px;">請跟著大聲唸一遍，唸完按下解鎖按鈕！</p>
       <button class="action-btn" onclick="finishStage1()">✅ 我唸好了！回傳心聲給 Tanya</button>
@@ -136,8 +131,11 @@
         <div class="dot"></div><div class="dot"></div><div class="dot"></div>
       </div>
       <div id="tanya-reply-bubble" class="chat-bubble chat-left hidden">
-        <div class="sender-name">🇾🇪 Tanya</div>
-        <div id="tanya-thanks-text">"Thank you for understanding me! Please send me a message to give me strength!"</div>
+        <div class="sender-name">🇾🇪 Tanya 即時回覆</div>
+        <div id="tanya-thanks-text">
+          <span class="en-text">"Thank you for understanding me! Please send me a message to give me strength!"</span>
+          <br><small style="color: #cbd5e1; display: block; margin-top: 4px;">（謝謝你理解我！請傳簡訊給我，給我力量！）</small>
+        </div>
         <button id="spk-btn-reply" class="speaker-btn" onclick="speakText('tanya-thanks-text', 'spk-btn-reply')">🔊 聽 Tanya 的即時回覆</button>
       </div>
     </div>
@@ -158,7 +156,7 @@
 
     <div id="read-task-2" class="read-aloud-card hidden">
       <div style="color: #a5b4fc; font-weight:bold; font-size:14px;">🎙️ 最終驗證：發射聲援廣播</div>
-      <p id="target-text-2" style="font-size: 15px; font-weight: bold; color: #fbbf24; margin: 8px 0;"></p>
+      <div id="target-text-2" style="margin: 8px 0;"></div>
       <button id="spk-btn-target2" class="speaker-btn" onclick="speakTarget(2, 'spk-btn-target2')">🔊 聽示範發音</button>
       <p style="font-size: 11px; color: #cbd5e1; margin-top: 6px;">大聲朗讀英文，將力量傳給 Tanya！</p>
       <button class="action-btn" onclick="finishGame()">🚀 發射聲援簡訊！完成救援</button>
@@ -172,7 +170,6 @@
       <h2 style="color: #4ade80; margin: 4px 0;">聲援簡訊發射成功！</h2>
       <p style="color: #94a3b8; font-size: 12px;">Tanya 已經接收到遠自臺灣的愛與勇氣。</p>
     </div>
-    <!-- 終點特務識別證 -->
     <div class="agent-card">
       <h3 style="color: #fbbf24; margin: 0 0 8px 0;">🪪 國際人權特務識別證</h3>
       <p style="font-size: 14px; margin: 4px 0;">稱號：<b>人權救援守護者</b></p>
@@ -185,7 +182,6 @@
 </div>
 
 <script>
-  // Web Audio 聲音合成器
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   
   function playSound(type) {
@@ -217,9 +213,13 @@
     }
   }
 
+  // 語音播放：自動過濾中文，只朗讀英文內容
   function speakText(elementId, btnId) {
     playSound('click');
-    const text = document.getElementById(elementId).innerText;
+    const el = document.getElementById(elementId);
+    const enSpan = el.querySelector('.en-text');
+    const text = enSpan ? enSpan.innerText : el.innerText;
+    
     const btn = document.getElementById(btnId);
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
@@ -232,7 +232,10 @@
 
   function speakTarget(stage, btnId) {
     playSound('click');
-    const text = document.getElementById('target-text-' + stage).innerText;
+    const el = document.getElementById('target-text-' + stage);
+    const enSpan = el.querySelector('.en-text');
+    const text = enSpan ? enSpan.innerText : el.innerText;
+    
     const btn = document.getElementById(btnId);
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
@@ -242,6 +245,9 @@
     utterance.onend = () => btn.classList.remove('playing');
     window.speechSynthesis.speak(utterance);
   }
+
+  let selectedData1 = {};
+  let selectedData2 = {};
 
   function selectStage1(option, btn) {
     const feedbackEl = document.getElementById('feedback1');
@@ -269,12 +275,16 @@
       feedbackEl.innerText = praiseMap[option];
       feedbackEl.classList.remove('hidden');
 
-      const textMap = {
-        'A': 'She feels scared because her father sold her.',
-        'B': 'She wants to go to school and choose her life.',
-        'C': 'She needs our help to stop this nightmare.'
+      const dataMap = {
+        'A': { en: 'She feels scared because her father sold her.', zh: '（她感到害怕，因為父親為了錢賣掉她。）' },
+        'B': { en: 'She wants to go to school and choose her life.', zh: '（她想去上學，並選擇自己的人生。）' },
+        'C': { en: 'She needs our help to stop this nightmare.', zh: '（她需要我們的幫助來終止這場惡夢。）' }
       };
-      document.getElementById('target-text-1').innerText = textMap[option];
+      selectedData1 = dataMap[option];
+      
+      document.getElementById('target-text-1').innerHTML = 
+        `<span class="en-text" style="font-size:15px; font-weight:bold; color:#fbbf24;">${selectedData1.en}</span><br>` +
+        `<small style="color:#cbd5e1; font-size:12px;">${selectedData1.zh}</small>`;
       document.getElementById('read-task-1').classList.remove('hidden');
     }
   }
@@ -284,8 +294,9 @@
     document.getElementById('stage1').classList.add('hidden');
     document.getElementById('chat-transition').classList.remove('hidden');
     
-    // 進度條與頭像狀態更新 (😭 ➔ 🥹)
-    document.getElementById('student-reply-bubble').innerText = "💬 " + document.getElementById('target-text-1').innerText;
+    document.getElementById('student-reply-bubble').innerHTML = 
+      `💬 <span class="en-text">${selectedData1.en}</span><br><small style="color:#e2e8f0; font-size:11px;">${selectedData1.zh}</small>`;
+    
     document.getElementById('progress').style.width = '60%';
     document.getElementById('avatar').innerText = '🥹';
     document.getElementById('target-status').innerText = '已接收到臺灣的聲援信';
@@ -330,12 +341,16 @@
       feedbackEl.innerText = praiseMap[option];
       feedbackEl.classList.remove('hidden');
 
-      const textMap = {
-        'A': 'Every child has the right to go to school!',
-        'B': 'Don\'t lose hope. We are fighting for your freedom!',
-        'C': 'Child marriage is wrong. Please protect young girls!'
+      const dataMap = {
+        'A': { en: 'Every child has the right to go to school!', zh: '（每個孩子都有去上學的權利！）' },
+        'B': { en: 'Don\'t lose hope. We are fighting for your freedom!', zh: '（不要放棄希望，我們正在為你的自由而戰！）' },
+        'C': { en: 'Child marriage is wrong. Please protect young girls!', zh: '（童婚是錯的，請保護年輕女孩！）' }
       };
-      document.getElementById('target-text-2').innerText = textMap[option];
+      selectedData2 = dataMap[option];
+
+      document.getElementById('target-text-2').innerHTML = 
+        `<span class="en-text" style="font-size:15px; font-weight:bold; color:#fbbf24;">${selectedData2.en}</span><br>` +
+        `<small style="color:#cbd5e1; font-size:12px;">${selectedData2.zh}</small>`;
       document.getElementById('read-task-2').classList.remove('hidden');
     }
   }
@@ -345,7 +360,6 @@
     document.getElementById('stage2').classList.add('hidden');
     document.getElementById('victory-screen').classList.remove('hidden');
     
-    // 救援成功：頭像轉為 🌟 並且進度條 100%
     document.getElementById('progress').style.width = '100%';
     document.getElementById('avatar').innerText = '🌟';
     document.getElementById('target-status').innerText = '成功串聯全球救援力量！';
