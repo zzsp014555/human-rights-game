@@ -15,14 +15,16 @@
     .header h2 { margin: 0; color: #38bdf8; font-size: 18px; letter-spacing: 1px; }
     
     .progress-bar-bg { background: #0f172a; height: 8px; border-radius: 4px; margin-top: 8px; overflow: hidden; }
-    .progress-bar-fill { background: linear-gradient(90deg, #38bdf8, #22c55e); height: 100%; width: 25%; transition: width 0.5s ease; }
+    .progress-bar-fill { background: linear-gradient(90deg, #38bdf8, #22c55e); height: 100%; width: 0%; transition: width 0.5s ease; }
 
+    /* 動態角色卡 */
     .profile-card { background: #0f172a; border-radius: 18px; padding: 12px; margin-bottom: 12px; border: 2px solid #334155; display: flex; align-items: center; gap: 12px; }
     .avatar { font-size: 42px; background: #1e293b; border-radius: 50%; padding: 4px; min-width: 58px; text-align: center; border: 2px solid #f87171; transition: transform 0.3s; }
     .avatar.pulse { animation: avatarPulse 1.2s infinite; }
     .profile-info { font-size: 12px; color: #94a3b8; line-height: 1.4; }
     .profile-info b { color: #f87171; font-size: 14px; }
 
+    /* 聊天室與簡訊框 */
     .chat-area { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
     .chat-bubble { max-width: 90%; padding: 12px 14px; border-radius: 18px; font-size: 13.5px; line-height: 1.5; position: relative; }
     .chat-left { background: #334155; color: #f8fafc; align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid #475569; }
@@ -48,10 +50,10 @@
     .feedback-card { background: #14532d; border: 1px solid #22c55e; color: #86efac; padding: 10px 14px; border-radius: 12px; font-size: 12.5px; margin-top: 10px; font-weight: bold; }
 
     .read-aloud-card { background: linear-gradient(135deg, #1e1b4b, #311b92); border: 2px solid #6366f1; border-radius: 18px; padding: 14px; text-align: center; margin-top: 12px; }
-    .action-btn { background: #22c55e; color: #fff; border: none; width: 100%; padding: 12px; border-radius: 14px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+    .action-btn { background: #22c55e; color: #fff; border: none; width: 100%; padding: 14px; border-radius: 16px; font-size: 17px; font-weight: bold; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 12px rgba(34,197,94,0.3); }
     .action-btn:hover { background: #16a34a; }
     
-    .hidden { display: none; }
+    .hidden { display: none !important; }
     
     .agent-card { background: linear-gradient(135deg, #422006, #78350f); border: 2px solid #f59e0b; border-radius: 18px; padding: 16px; text-align: center; margin-top: 15px; }
     #confetti-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 99; }
@@ -79,8 +81,27 @@
     </div>
   </div>
 
-  <!-- 動態角色卡 -->
-  <div class="profile-card">
+  <!-- 🌟 新增：開頭封面 (Cover Landing Screen) -->
+  <div id="cover-screen" style="text-align: center; padding: 10px 0;">
+    <div style="font-size: 55px; margin: 10px 0; animation: avatarPulse 1.5s infinite;">🚨📱</div>
+    <h3 style="color: #38bdf8; font-size: 20px; margin: 5px 0;">HUMAN RIGHTS MESSENGER</h3>
+    <p style="color: #94a3b8; font-size: 13px; margin-bottom: 15px;">跨國 SOS 簡訊救援大作戰</p>
+
+    <div style="background: linear-gradient(135deg, #1e1b4b, #311b92); border: 2px solid #6366f1; border-radius: 18px; padding: 16px; text-align: left; margin-bottom: 20px;">
+      <div style="color: #fbbf24; font-weight: bold; font-size: 14px; margin-bottom: 8px;">📋 特務任務簡報 (Mission Briefing)</div>
+      <p style="font-size: 13px; color: #e2e8f0; line-height: 1.6; margin: 0;">
+        基地台剛剛攔截到一封來自<b>葉門 🇾🇪</b>的加密 SOS 求救訊號！<br><br>
+        請化身為<b>「國際人權特務」</b>：<br>
+        1️⃣ 解讀 11 歲女孩 Tanya 的求救心聲<br>
+        2️⃣ 大聲朗讀聲援簡訊，發射勇敢力量！
+      </p>
+    </div>
+
+    <button class="action-btn" style="background: #38bdf8; color: #0f172a; font-size: 18px;" onclick="startGameFromCover()">🚀 啟動 SOS 救援任務</button>
+  </div>
+
+  <!-- 動態角色卡 (遊戲開始後顯示) -->
+  <div id="profile-card" class="profile-card hidden">
     <div id="avatar" class="avatar pulse">😭</div>
     <div class="profile-info">
       救援目標：<b id="target-name">Tanya (11歲)</b><br>
@@ -90,7 +111,7 @@
   </div>
 
   <!-- 關卡 1 -->
-  <div id="stage1">
+  <div id="stage1" class="hidden">
     <div class="chat-area">
       <div class="chat-bubble chat-left">
         <div class="sender-name">🇾🇪 Tanya 🚨 求救簡訊</div>
@@ -213,7 +234,15 @@
     }
   }
 
-  // 語音播放：自動過濾中文，只朗讀英文內容
+  // 點擊封面啟動任務
+  function startGameFromCover() {
+    playSound('success');
+    document.getElementById('cover-screen').classList.add('hidden');
+    document.getElementById('profile-card').classList.remove('hidden');
+    document.getElementById('stage1').classList.remove('hidden');
+    document.getElementById('progress').style.width = '25%';
+  }
+
   function speakText(elementId, btnId) {
     playSound('click');
     const el = document.getElementById(elementId);
