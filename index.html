@@ -6,73 +6,114 @@
   <title>HUMAN RIGHTS MESSENGER - 國際人權特務網</title>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
-    body { background-color: #121826; color: #fff; display: flex; justify-content: center; padding: 15px; margin: 0; }
-    .phone-container { width: 100%; max-width: 420px; background: #1e293b; border-radius: 28px; border: 3px solid #334155; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+    body { background-color: #0f172a; color: #fff; display: flex; justify-content: center; padding: 15px; margin: 0; }
+    
+    /* 手機外框與深色科技風 */
+    .phone-container { width: 100%; max-width: 430px; background: #1e293b; border-radius: 32px; border: 4px solid #334155; padding: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.6); position: relative; overflow: hidden; }
+    
+    /* 頂部列與進度條 */
     .header { text-align: center; border-bottom: 2px solid #334155; padding-bottom: 12px; margin-bottom: 15px; }
-    .header h2 { margin: 0; color: #38bdf8; font-size: 20px; }
-    .badge { background: #0284c7; color: #fff; padding: 3px 10px; border-radius: 12px; font-size: 12px; }
-    
-    .msg-box { background: #0f172a; border-radius: 16px; padding: 15px; margin-bottom: 15px; border-left: 5px solid #ef4444; }
-    .msg-sender { color: #f87171; font-weight: bold; font-size: 14px; margin-bottom: 5px; }
-    .msg-text { font-size: 16px; line-height: 1.5; margin: 8px 0; color: #f1f5f9; }
-    
-    .speaker-btn { background: #38bdf8; color: #0f172a; border: none; padding: 6px 12px; border-radius: 20px; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; }
-    .speaker-btn:hover { background: #7dd3fc; }
+    .header h2 { margin: 0; color: #38bdf8; font-size: 19px; letter-spacing: 1px; }
+    .progress-bar-bg { background: #0f172a; height: 10px; border-radius: 5px; margin-top: 10px; overflow: hidden; }
+    .progress-bar-fill { background: linear-gradient(90deg, #38bdf8, #22c55e); height: 100%; width: 25%; transition: width 0.5s ease; }
 
-    .section-title { font-size: 15px; color: #94a3b8; margin-bottom: 10px; font-weight: bold; }
+    /* 主角檔案卡 */
+    .profile-card { background: #0f172a; border-radius: 20px; padding: 15px; margin-bottom: 15px; border: 2px solid #334155; display: flex; align-items: center; gap: 15px; }
+    .avatar { font-size: 48px; background: #1e293b; border-radius: 50%; padding: 5px; min-width: 65px; text-align: center; border: 2px solid #f87171; transition: transform 0.3s; }
+    .avatar.pulse { animation: pulse 1s infinite; }
+    .profile-info { font-size: 13px; color: #94a3b8; }
+    .profile-info b { color: #f87171; font-size: 15px; }
+
+    /* 求救對話框 */
+    .msg-box { background: #1e1b4b; border-radius: 16px; padding: 12px 15px; margin-bottom: 15px; border-left: 5px solid #818cf8; position: relative; }
+    .msg-text { font-size: 15px; line-height: 1.5; margin: 6px 0; color: #f1f5f9; font-weight: 500; }
+    .highlight { color: #fbbf24; font-weight: bold; }
+
+    /* 音樂/語音播放按鈕 */
+    .speaker-btn { background: #0284c7; color: #fff; border: none; padding: 8px 14px; border-radius: 20px; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; transition: 0.2s; }
+    .speaker-btn:hover { background: #0369a1; }
+    .speaker-btn.playing { background: #22c55e; animation: wave 1s infinite alternate; }
+
+    /* 選項按鈕 */
+    .section-title { font-size: 14px; color: #38bdf8; margin-bottom: 10px; font-weight: bold; }
     .btn-group { display: flex; flex-direction: column; gap: 10px; }
-    .option-btn { background: #334155; border: 2px solid #475569; color: #fff; padding: 12px; border-radius: 14px; text-align: left; font-size: 15px; cursor: pointer; transition: 0.2s; }
-    .option-btn:hover { border-color: #38bdf8; background: #1e293b; }
-    .option-btn.wrong { border-color: #ef4444; background: #451a1a; }
+    .option-btn { background: #334155; border: 2px solid #475569; color: #fff; padding: 12px 14px; border-radius: 16px; text-align: left; font-size: 14px; cursor: pointer; transition: 0.2s; line-height: 1.4; }
+    .option-btn:hover { border-color: #38bdf8; background: #0f172a; }
+    .option-btn.wrong { border-color: #ef4444; background: #451a1a; animation: shake 0.3s; }
     
-    .read-aloud-card { background: #1e1b4b; border: 2px solid #6366f1; border-radius: 16px; padding: 15px; text-align: center; margin-top: 15px; }
-    .action-btn { background: #22c55e; color: #fff; border: none; width: 100%; padding: 14px; border-radius: 14px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; }
+    /* 朗讀任務卡 */
+    .read-aloud-card { background: linear-gradient(135deg, #1e1b4b, #311b92); border: 2px solid #6366f1; border-radius: 20px; padding: 16px; text-align: center; margin-top: 15px; box-shadow: 0 4px 15px rgba(99,102,241,0.3); }
+    .action-btn { background: #22c55e; color: #fff; border: none; width: 100%; padding: 14px; border-radius: 16px; font-size: 17px; font-weight: bold; cursor: pointer; margin-top: 12px; box-shadow: 0 4px 10px rgba(34,197,94,0.3); }
     .action-btn:hover { background: #16a34a; }
     
-    .feedback { color: #f87171; font-size: 14px; margin-top: 8px; text-align: center; }
+    /* 視覺反饋與動畫 */
+    .feedback { color: #f87171; font-size: 13px; margin-top: 8px; text-align: center; font-weight: bold; }
     .hidden { display: none; }
-    .statyou-box { background: #422006; border: 2px solid #f59e0b; border-radius: 16px; padding: 20px; text-align: center; margin-top: 20px; }
+    
+    /* 結算特務卡 */
+    .agent-card { background: linear-gradient(135deg, #422006, #78350f); border: 2px solid #f59e0b; border-radius: 20px; padding: 20px; text-align: center; margin-top: 15px; }
+    
+    @keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+    @keyframes wave { from { opacity: 0.8; } to { opacity: 1; transform: scale(1.02); } }
   </style>
 </head>
 <body>
 
 <div class="phone-container">
+  <!-- 頂部資訊 -->
   <div class="header">
     <h2>🌐 HUMAN RIGHTS MESSENGER</h2>
-    <span class="badge">國際人權特務基地</span>
+    <div style="font-size: 11px; color: #94a3b8; margin-top: 2px;">國際人權救援基地台</div>
+    <div class="progress-bar-bg">
+      <div id="progress" class="progress-bar-fill"></div>
+    </div>
   </div>
 
-  <!-- 關卡 1：聽見 Tanya -->
+  <!-- 主角動態檔案卡 -->
+  <div class="profile-card">
+    <div id="avatar" class="avatar pulse">😭</div>
+    <div class="profile-info">
+      救援目標：<b id="target-name">Tanya (11歲)</b><br>
+      所在地區：葉門 (Yemen) 🇾🇪<br>
+      狀態：<span id="target-status" style="color:#f87171;">緊急求救中 (SOS)</span>
+    </div>
+  </div>
+
+  <!-- 關卡 1 -->
   <div id="stage1">
     <div class="msg-box">
-      <div class="msg-sender">🚨 收到來自葉門的求救簡訊 (Tanya, 11歲)</div>
-      <div class="msg-text" id="tanya-msg-1">"I am 11 years old. My father sold me, and my husband hits me very often. I want to go to school!"</div>
-      <button class="speaker-btn" onclick="speakText('tanya-msg-1')">🔊 聽 Tanya 朗讀 (Listen)</button>
+      <div class="msg-text" id="tanya-msg-1">
+        "I am 11 years old. My father <span class="highlight">sold</span> me for money, and my husband hits me. I want to <span class="highlight">go to school</span>!"
+      </div>
+      <button id="spk-btn-1" class="speaker-btn" onclick="speakText('tanya-msg-1', 'spk-btn-1')">
+        🔊 聆聽 Tanya 的求救心聲
+      </button>
     </div>
 
-    <div class="section-title">【任務一】分析簡訊，哪一句話最能說明 Tanya 的處境？</div>
+    <div class="section-title">🎯 任務 1：分析簡訊，哪一句最能說明 Tanya 的處境？</div>
     <div class="btn-group">
-      <button class="option-btn" onclick="selectStage1('A', this)">💔 <b>A.</b> "She feels scared because her father sold her for money."<br><small>（她感到害怕，因為父親為了錢賣掉她。）</small></button>
-      <button class="option-btn" onclick="selectStage1('B', this)">🎒 <b>B.</b> "She wants to go back to school and choose her life."<br><small>（她想回到學校，並選擇自己的人生。）</small></button>
-      <button class="option-btn" onclick="selectStage1('C', this)">🕊️ <b>C.</b> "She needs our help to stop this terrible nightmare."<br><small>（她需要我們的幫助來終止這場惡夢。）</small></button>
+      <button class="option-btn" onclick="selectStage1('A', this)">💔 <b>A.</b> "She feels <span class="highlight">scared</span> because her father sold her."<br><small>（她感到害怕，因為父親賣掉了她。）</small></button>
+      <button class="option-btn" onclick="selectStage1('B', this)">🎒 <b>B.</b> "She wants to go to <span class="highlight">school</span> and choose her life."<br><small>（她想去上學，並選擇自己的人生。）</small></button>
+      <button class="option-btn" onclick="selectStage1('C', this)">🕊️ <b>C.</b> "She needs our <span class="highlight">help</span> to stop this nightmare."<br><small>（她需要我們的幫助來終止這場惡夢。）</small></button>
       <button class="option-btn" onclick="selectStage1('D', this)">😄 <b>D.</b> "She is happy because she loves her marriage."<br><small>（她很開心，因為她喜歡這段婚姻。）</small></button>
     </div>
     <div id="feedback1" class="feedback"></div>
 
     <div id="read-task-1" class="read-aloud-card hidden">
-      <div style="color: #a5b4fc; font-weight:bold;">🎙️ 特務任務：朗讀驗證</div>
-      <p id="target-text-1" style="font-size: 18px; font-weight: bold; color: #fff; margin: 10px 0;"></p>
-      <button class="speaker-btn" onclick="speakTarget(1)">🔊 先聽一次示範發音</button>
-      <p style="font-size: 13px; color: #cbd5e1; margin-top: 10px;">請跟著大聲唸一遍，唸完後按下方的解鎖按鈕！</p>
+      <div style="color: #a5b4fc; font-weight:bold; font-size:15px;">🎙️ 特務任務：朗讀驗證</div>
+      <p id="target-text-1" style="font-size: 16px; font-weight: bold; color: #fbbf24; margin: 10px 0;"></p>
+      <button id="spk-btn-target1" class="speaker-btn" onclick="speakTarget(1, 'spk-btn-target1')">🔊 聽示範發音</button>
+      <p style="font-size: 12px; color: #cbd5e1; margin-top: 8px;">請跟著大聲唸一遍，唸完按下解鎖按鈕！</p>
       <button class="action-btn" onclick="finishStage1()">✅ 我唸好了！解鎖下一關</button>
     </div>
   </div>
 
-  <!-- 關卡 2：聲援回覆 -->
+  <!-- 關卡 2 -->
   <div id="stage2" class="hidden">
-    <div class="section-title">【任務二】你打算發射哪一句國際聲援宣言給 Tanya？</div>
+    <div class="section-title">🎯 任務 2：你打算發射哪一句國際聲援宣言給 Tanya？</div>
     <div class="btn-group">
-      <button class="option-btn" onclick="selectStage2('A', this)">📢 <b>A.</b> "Every child has the right to go to school!"<br><small>（每個孩子都有去上學的權利！）</small></button>
+      <button class="option-btn" onclick="selectStage2('A', this)">📢 <b>A.</b> "Every child has the right to <span class="highlight">go to school</span>!"<br><small>（每個孩子都有去上學的權利！）</small></button>
       <button class="option-btn" onclick="selectStage2('B', this)">❤️ <b>B.</b> "Don't lose hope. We are fighting for your freedom!"<br><small>（不要放棄希望，我們正在為你的自由而戰！）</small></button>
       <button class="option-btn" onclick="selectStage2('C', this)">🚫 <b>C.</b> "Child marriage is wrong. Please protect young girls!"<br><small>（童婚是錯的，請保護年輕女孩！）</small></button>
       <button class="option-btn" onclick="selectStage2('D', this)">🙈 <b>D.</b> "You should stay home and obey your husband."<br><small>（妳應該留在家裡並聽丈夫的話。）</small></button>
@@ -80,98 +121,155 @@
     <div id="feedback2" class="feedback"></div>
 
     <div id="read-task-2" class="read-aloud-card hidden">
-      <div style="color: #a5b4fc; font-weight:bold;">🎙️ 最終驗證：發射聲援廣播</div>
-      <p id="target-text-2" style="font-size: 18px; font-weight: bold; color: #fff; margin: 10px 0;"></p>
-      <button class="speaker-btn" onclick="speakTarget(2)">🔊 先聽一次示範發音</button>
-      <p style="font-size: 13px; color: #cbd5e1; margin-top: 10px;">大聲朗讀這句聲援英文，將力量傳給 Tanya！</p>
-      <button class="action-btn" onclick="finishGame()">🚀 發射聲援簡訊！完成任務</button>
+      <div style="color: #a5b4fc; font-weight:bold; font-size:15px;">🎙️ 最終任務：發射聲援廣播</div>
+      <p id="target-text-2" style="font-size: 16px; font-weight: bold; color: #fbbf24; margin: 10px 0;"></p>
+      <button id="spk-btn-target2" class="speaker-btn" onclick="speakTarget(2, 'spk-btn-target2')">🔊 聽示範發音</button>
+      <p style="font-size: 12px; color: #cbd5e1; margin-top: 8px;">大聲朗讀英文，將力量傳給 Tanya！</p>
+      <button class="action-btn" onclick="finishGame()">🚀 發射聲援簡訊！完成救援</button>
     </div>
   </div>
 
-  <!-- 勝利結算畫面 -->
+  <!-- 勝利結算 -->
   <div id="victory-screen" class="hidden">
     <div style="text-align: center;">
-      <h1 style="font-size: 50px; margin: 0;">🎉</h1>
-      <h2 style="color: #4ade80; margin: 5px 0;">聲援簡訊發射成功！</h2>
-      <p style="color: #94a3b8; font-size: 14px;">Tanya 已經接收到遠自臺灣的愛與勇氣。</p>
+      <h1 style="font-size: 55px; margin: 0;">📡✨</h1>
+      <h2 style="color: #4ade80; margin: 5px 0;">救援簡訊發射成功！</h2>
+      <p style="color: #94a3b8; font-size: 13px;">Tanya 已經接收到遠自臺灣的愛與勇氣。</p>
     </div>
-    <div class="statyou-box">
-      <h3 style="color: #fbbf24; margin: 0 0 10px 0;">🏆 獎勵結算解鎖</h3>
-      <p style="font-size: 16px; margin: 5px 0;">獲得成就：<b>國際人權特務勳章</b></p>
-      <p style="font-size: 20px; font-weight: bold; color: #f59e0b; margin: 10px 0;">STATYOU +20 XP / +20 金幣</p>
-      <small style="color: #d97706;">請向老師出示此畫面領取獎勵！</small>
+    <div class="agent-card">
+      <h3 style="color: #fbbf24; margin: 0 0 10px 0;">🪪 國際人權特務識別證</h3>
+      <p style="font-size: 15px; margin: 5px 0;">稱號：<b>人權救援守護者</b></p>
+      <p style="font-size: 22px; font-weight: bold; color: #f59e0b; margin: 10px 0;">STATYOU +20 XP / +20 金幣</p>
+      <small style="color: #fcd34d;">請出示此畫面向老師領取獎勵！</small>
     </div>
-    <button class="action-btn" style="background: #3b82f6; margin-top: 20px;" onclick="location.reload()">🔄 重新開始任務</button>
+    <button class="action-btn" style="background: #0284c7; margin-top: 15px;" onclick="location.reload()">🔄 再次執行救援任務</button>
   </div>
 
 </div>
 
 <script>
-  let selectedSentence1 = "";
-  let selectedSentence2 = "";
+  // 音效合成器 (Web Audio API)
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  
+  function playSound(type) {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
 
-  function speakText(elementId) {
+    if (type === 'click') {
+      osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.08);
+    } else if (type === 'wrong') {
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.25);
+    } else if (type === 'success') {
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+      osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1);
+      osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2);
+      gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.4);
+    }
+  }
+
+  function speakText(elementId, btnId) {
+    playSound('click');
     const text = document.getElementById(elementId).innerText;
+    const btn = document.getElementById(btnId);
+    
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'en-US';
-    utterance.rate = 0.85; // 稍微放慢語速適合特教生
+    utterance.rate = 0.8;
+
+    utterance.onstart = () => btn.classList.add('playing');
+    utterance.onend = () => btn.classList.remove('playing');
+
     window.speechSynthesis.speak(utterance);
   }
 
-  function speakTarget(stage) {
+  function speakTarget(stage, btnId) {
+    playSound('click');
     const text = document.getElementById('target-text-' + stage).innerText;
+    const btn = document.getElementById(btnId);
+
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'en-US';
-    utterance.rate = 0.85;
+    utterance.rate = 0.8;
+
+    utterance.onstart = () => btn.classList.add('playing');
+    utterance.onend = () => btn.classList.remove('playing');
+
     window.speechSynthesis.speak(utterance);
   }
 
   function selectStage1(option, btn) {
-    const feedback = document.getElementById('feedback1');
     if (option === 'D') {
-      feedback.innerText = "❌ Tanya 正在受虐受苦，這段婚姻是她的惡夢喔！請重新選擇。";
+      playSound('wrong');
+      document.getElementById('feedback1').innerText = "❌ Tanya 正在受虐受苦，這段婚姻是她的惡夢喔！請重新選擇。";
       btn.classList.add('wrong');
     } else {
-      feedback.innerText = "";
+      playSound('click');
+      document.getElementById('feedback1').innerText = "";
       const textMap = {
-        'A': 'She feels scared because her father sold her for money.',
-        'B': 'She wants to go back to school and choose her life.',
-        'C': 'She needs our help to stop this terrible nightmare.'
+        'A': 'She feels scared because her father sold her.',
+        'B': 'She wants to go to school and choose her life.',
+        'C': 'She needs our help to stop this nightmare.'
       };
-      selectedSentence1 = textMap[option];
-      document.getElementById('target-text-1').innerText = selectedSentence1;
+      document.getElementById('target-text-1').innerText = textMap[option];
       document.getElementById('read-task-1').classList.remove('hidden');
     }
   }
 
   function finishStage1() {
+    playSound('success');
     document.getElementById('stage1').classList.add('hidden');
     document.getElementById('stage2').classList.remove('hidden');
+    
+    // 遊戲視覺進展
+    document.getElementById('progress').style.width = '65%';
+    document.getElementById('avatar').innerText = '🥹';
+    document.getElementById('target-status').innerText = '已接收到臺灣的聲援信';
+    document.getElementById('target-status').style.color = '#fbbf24';
   }
 
   function selectStage2(option, btn) {
-    const feedback = document.getElementById('feedback2');
     if (option === 'D') {
-      feedback.innerText = "❌ 這句話會讓 Tanya 更絕望，請選擇充滿正義與關懷的宣言！";
+      playSound('wrong');
+      document.getElementById('feedback2').innerText = "❌ 這句話會讓 Tanya 更絕望，請選擇充滿正義與關懷的宣言！";
       btn.classList.add('wrong');
     } else {
-      feedback.innerText = "";
+      playSound('click');
+      document.getElementById('feedback2').innerText = "";
       const textMap = {
         'A': 'Every child has the right to go to school!',
         'B': 'Don\'t lose hope. We are fighting for your freedom!',
         'C': 'Child marriage is wrong. Please protect young girls!'
       };
-      selectedSentence2 = textMap[option];
-      document.getElementById('target-text-2').innerText = selectedSentence2;
+      document.getElementById('target-text-2').innerText = textMap[option];
       document.getElementById('read-task-2').classList.remove('hidden');
     }
   }
 
   function finishGame() {
+    playSound('success');
     document.getElementById('stage2').classList.add('hidden');
     document.getElementById('victory-screen').classList.remove('hidden');
+    
+    // 救援大成功
+    document.getElementById('progress').style.width = '100%';
+    document.getElementById('avatar').innerText = '🌟';
+    document.getElementById('target-status').innerText = '成功串聯全球救援力量！';
+    document.getElementById('target-status').style.color = '#4ade80';
   }
 </script>
 
